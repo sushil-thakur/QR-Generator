@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="./style.css">
-    <title>QR</title>
+    <link rel="stylesheet" href="./style.css">
+    <title>QR Code Generator</title>
 </head>
 <body>
     <div class="container">
         <h1>QR Code Generator</h1>
         <input type="text" id="qrText" placeholder="Enter text here">
-        <div id="imgBox">
+        <div class="imgBox" id="imgBox">
             <img src="" id="qrImage" alt="QR Code">
         </div>
         <button onclick="GenerateQR()">Generate QR</button>
@@ -22,14 +22,16 @@
         let qrText = document.getElementById('qrText');
 
         function GenerateQR() {
-            
-            qrImage.style.display = 'block';
-           
-            qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrText.value);
+            if (qrText.value.length > 0) {
+                qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrText.value);
+                imgBox.classList.add("show-img");
+            } else {
+                qrImage.classList.add('error');
+                setTimeout(() => {
+                    qrImage.classList.remove('error');
+                }, 1000);
+            }
         }
     </script>
-</body>
-</html>
-    
 </body>
 </html>
